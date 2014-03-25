@@ -72,6 +72,7 @@ def dlLinks(links, labels=[], parser=None, suffix=None):
     """
     for link in links:
         if COL.find({u'url': link}).count() == 0:
+            f = urllib.urlopen(link + suffix)
             cont = f.read()
             f.close()
         if parser is not None:
