@@ -55,7 +55,9 @@ def parseZeit(artikel):
     soup = BeautifulSoup(artikel)
     text = ''
     for div in soup.find_all('div'):
-        if div.has_attr('id') and div['id'] == u'main':
+        if div.has_attr('class') and div['class'] == [u'article-body']:
+            #print div['class']
+            #if div.has_attr('class') and div['class'] == u'article-body':
             text += div.get_text()
     return text
 
