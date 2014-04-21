@@ -77,21 +77,21 @@ def dlLinks(links, labels=[], parser=None, suffix=None):
             f = urllib.urlopen(link + suffix)
             cont = f.read()
             f.close()
-        if parser is not None:
-            param = {}
-            param[u'url'] = link
-            param[u'labels'] = labels
-            param[u'page'] = cont.decode('UTF-8')
-            param[u'text'] = parser(cont.decode('UTF-8'))
-            COL.insert(param)
+            if parser is not None:
+                param = {}
+                param[u'url'] = link
+                param[u'labels'] = labels
+                param[u'page'] = cont.decode('UTF-8')
+                param[u'text'] = parser(cont.decode('UTF-8'))
+                COL.insert(param)
+            else:
+                param = {}
+                param[u'url'] = link
+                param[u'labels'] = labels
+                param[u'page'] = cont.decode('UTF-8')
+                COL.insert(param)
         else:
-            param = {}
-            param[u'url'] = link
-            param[u'labels'] = labels
-            param[u'page'] = cont.decode('UTF-8')
-            COL.insert(param)
-    else:
-        pass
+            pass
 
 
 if __name__ == '__main__':
