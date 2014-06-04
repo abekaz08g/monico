@@ -80,6 +80,6 @@ def getFreqDistByPos(snapshot, pos, tempcol):
                     True)
 
 
-run('snapshot140331')
+#run('snapshot140331')
 #getFreqDist(u'snapshot140331', u'lemmata2')
 #getFreqDistByPos(u'snapshot140331', u'NN', u'lemmata2pos')
