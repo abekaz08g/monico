@@ -1,24 +1,41 @@
 # -*- coding:utf-8 -*-
-import os
+
+from subprocess import PIPE, Popen
+import platform
 
 
-def tag(inp):
-    fin = u'.tgin'
-    fout = open(fin, 'w')
-    fout.write(inp.encode('utf-8'))
+def winproc(input):
+    fout = open('.trin', 'w')
+    fout.write(input.encode('utf-8'))
     fout.close()
-    os.popen(u'tree-tagger-german-utf8 .tgin >> .tgout')
-    f = open(u'.tgout')
-    lines = [l.decode(u'UTF-8') for l in f.readlines()]
+    CMD = 'tag-german .trin .trout'
+    p = Popen(CMD, shell=True)
+    p.communicate()
+    f = open('.trout')
+    cont = f.read()
     f.close()
-    ttdict = {u'surface': [], u'pos': [], u'lemma': []}
-    for line in lines:
-        line = line.replace(u'\n', '')
-        rec = line.split('\t')
+    return cont.decode('UTF-8')
+
+
+def proc(input):
+    CMD = 'tree-tagger-german-utf8'
+    p = Popen(CMD, shell=True, stdin=PIPE, stdout=PIPE, stderr=PIPE)
+    (outp, err) = p.communicate(input.encode('UTF-8'))
+    outp = outp.decode('UTF-8')
+    return outp
+
+
+def run(input):
+    if platform.system() == 'Windows':
+        outp = winproc(input)
+    else:
+        outp = proc(input)
+    wordLines = outp.split(u'\n')
+    words = []
+    for line in wordLines:
+        rec = line.split(u'\t')
         if len(rec) == 3:
-            ttdict[u'surface'].append(rec[0])
-            ttdict[u'pos'].append(rec[1])
-            ttdict[u'lemma'].append(rec[2])
-    os.remove(u'.tgin')
-    os.remove(u'.tgout')
-    return ttdict
+            words.append(rec)
+        else:
+            print line
+    return words
