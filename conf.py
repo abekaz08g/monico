@@ -15,8 +15,8 @@ DBCONF = {
     u'host': u'localhost',
     u'port': 27017,
     u'dbname': u'web',
-    u'maincolname': u'dzeit2',
-    u'doccolname': u'dzeit2.docs',
-    u'rsscolname': u'dzeit2.rss',
+    u'maincolname': u'dzeit',
+    u'doccolname': u'dzeit.docs',
+    u'rsscolname': u'dzeit.rss',
     u'rssdict': RSSDICT
 }
