@@ -50,7 +50,8 @@ def storeDocs(rssurl, category, doccol, sentcol):
                 sentcol.insert(sentence)
             doccol.update(
                 {u'url': link},
-                {u'$addToSet': {u'category': category}}
+                {u'$addToSet': {u'category': category}},
+                True
             )
 
 
