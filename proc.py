@@ -21,20 +21,6 @@ def storeRSS(rssurl, category, collection):
     collection.insert(rssdict)
 
 
-def readRSS(collection):
-    """
-    collection: pymongo collection
-    returns rss string and category tuple list
-    """
-    res = collection.find()
-    rsscol = []
-    for item in res:
-        rssdict = {u'rss': item[u'rss']}
-        rss = xmltodict.unparse(rssdict)
-        rsscol.append((item[u'category'], rss))
-    return rsscol
-
-
 def storeDocs(rssurl, category, doccol, sentcol):
     links = tools.parseRss(rssurl)
     for link in links:

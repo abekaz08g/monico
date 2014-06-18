@@ -35,6 +35,15 @@ def treetagger(str):
     return tagger.run(str)
 
 
+def antSentence(sentence):
+    antSent = {u'surface': [], u'pos': [], u'lemma': []}
+    for w in sentence:
+        antSent[u'surface'].append(w[0])
+        antSent[u'pos'].append(w[1])
+        antSent[u'lemma'].append(w[2])
+    return antSent
+
+
 def textToSentences(antText):
     """
     antText: unicode text annotated by treetagger
@@ -44,11 +53,11 @@ def textToSentences(antText):
     for word in antText:
         sentence.append(word)
         if word[1] in [u'$.', u'$?', u'$!']:
-            antSent = {u'surface': [], u'pos': [], u'lemma': []}
-            for w in sentence:
-                antSent[u'surface'].append(w[0])
-                antSent[u'pos'].append(w[1])
-                antSent[u'lemma'].append(w[2])
+            antSent = antSentence(sentence)
             sentences.append(antSent)
             sentence = []
+    if len(sentence) > 0:
+        antSent = antSentence(sentence)
+        sentences.append(antSent)
+
     return sentences
